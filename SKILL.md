@@ -1,122 +1,89 @@
 ---
-name: office-academic-skill
-description: Chinese-first academic Word and PowerPoint workflow for paper reading reports, thesis or group-meeting PPTs, editable DOCX/PPTX generation, Office file inspection, template matching, speaker notes, and layout quality checks. Use when the user asks to read papers into Word reports, create or polish PPT/PPTX, convert paper/thesis materials into slides, edit DOCX/PPTX, inspect Office files, or produce Chinese academic presentation/report deliverables. Preserve English paper titles, formulas, variable names, software commands, and references.
+name: scientific-toolkit-skill
+description: Research computing toolkit for optoelectronic information science and engineering, MATLAB/Octave, Python scientific analysis, signal processing, image processing, statistics, simulation, optimization, publication figures, sensor/time-series data, citation lookup, and common scientific libraries. Use when the user asks for MATLAB code, scientific Python, data analysis, plots, simulations, formulas, statistics, machine learning, optical/physical/materials computation, or reproducible research workflows.
 ---
 
-# Office Academic Skill
+# Scientific Toolkit Skill
 
 ## Scope
 
-Use this skill for:
+Use this skill for科研计算 and software-assisted research:
 
-- Word reports from PDFs, DOCX files, arXiv papers, journal articles, theses, and manuscripts.
-- Chinese-first academic PPTs for literature reports, group meetings, courses, opening/midterm/defense presentations, and project presentations.
-- Editable `.docx` and `.pptx` generation, inspection, repair, and style preservation.
-- PPT template matching, native slide editing, speaker notes, and visual quality checks.
+- MATLAB/Octave scripts, debugging, refactoring, signal/image processing, FFT, filtering, matrix computation, simulation, and figure export.
+- Python scientific workflows with NumPy, SciPy, pandas, matplotlib, seaborn, scikit-learn, statsmodels, SymPy, and related tools.
+- Statistics, exploratory data analysis, sensor/time-series forecasting, optimization, discrete-event simulation, quantum optics/open quantum systems, materials data, and graph/network analysis.
+- Literature lookup, citation metadata, BibTeX, and reference verification when it supports coding or research analysis.
 
-Do not use this skill for pure manuscript prose drafting without a Word/PPT deliverable; use `research-writing-skill` instead. Do not use it for MATLAB, Python analysis, statistics, or plotting unless those outputs are being inserted into Word/PPT.
+Use `research-writing-skill` for manuscript prose. Use `office-academic-skill` for Word/PPT deliverables.
 
-## Language And Evidence
+## Domain Defaults
 
-- Default to Chinese for explanations, Word report prose, slide text, outlines, and speaker notes.
-- Preserve English titles, formulas, variables, model names, software commands, reference entries, and direct source labels.
-- Distinguish `论文原文`, `图表/公式证据`, `代码或仿真结果`, `根据上下文推断`, and `建议`.
-- Do not invent DOI, authors, journal details, experiment values, figure numbers, section names, page numbers, or conclusions.
-- Attach source labels to claims, parameters, quantitative results, formula explanations, datasets, figures, limitations, and novelty statements.
+The user's field is光电信息科学与工程. Prefer examples and checks relevant to:
 
-## Paper Reading To Word
+- Optics, optoelectronics, optical communication, optical sensing, fiber sensing, BOTDR/BOTDA, BGS, SPM, dispersion, noise, and deconvolution.
+- Signal processing, image processing, spectroscopy, detector data, sensor time series, calibration, and uncertainty.
+- MATLAB simulation and reproducible figure generation for论文/答辩.
 
-Default output, unless the user asks otherwise:
+Do not fabricate physical parameters, material constants, software menu operations, experimental results, or paper conclusions. When uncertain, ask for the source file or mark the assumption.
 
-1. A bilingual English-Chinese report for fast browsing.
-2. A Chinese-only report for submission, teaching, or presentation preparation.
-3. Optional Markdown working notes if useful.
+## General Workflow
 
-Before writing, build a source map:
+1. Read the provided code, data, README, docs, and project instructions before changing anything.
+2. Identify variables, dimensions, units, input/output paths, random seeds, and expected figures.
+3. Make small, verifiable changes and avoid unrelated refactors.
+4. Prefer mature libraries over hand-rolled numerical methods.
+5. Run a script-level or test-level verification when possible.
+6. Report environment, commands, output paths, generated figures, and known limitations.
 
-- Title, authors, venue, year, DOI/arXiv if present.
-- Section headings and page spans when available.
-- Figures, tables, equations, datasets, hardware/software, and evaluation settings that support key claims.
-- Uncertain or missing metadata marked as `未在原文中明确给出`.
+## MATLAB And Figures
 
-Use `references/report-structure.md` for the default report structure and evidence-label format.
+- Preserve the original code structure when possible.
+- Add concise comments for physical meaning, units, assumptions, or formula sources.
+- Centralize key parameters and avoid hardcoded absolute paths.
+- Add `rng` for stochastic simulations when reproducibility matters.
+- For publication figures, export both high-resolution `.png` and vector `.svg` when feasible.
+- Check axes, units, legends, sampling rate, line width, font, color, and image resolution.
 
-For `.docx` creation or editing:
+For MATLAB/Octave details, use `references/scientific-skills/matlab/SKILL.md`.
 
-- Prefer structured headings, summary tables, figure/table placeholders, and source labels.
-- Use reliable Chinese fonts such as Microsoft YaHei or SimSun; use Times New Roman, Calibri, or Arial for English and numbers.
-- For existing academic/legal/business Word documents, make a new version or use tracked-change style edits rather than overwriting the original.
-- For advanced DOCX operations, use `references/office-docx/ooxml.md`, `references/office-docx/docx-js.md`, and the scripts under `references/office-docx/`.
+## Python Scientific Modules
 
-## Academic PPT Workflow
+Load only the relevant bundled reference:
 
-First clarify only the high-impact missing details:
+- Plotting and publication figures: `matplotlib`, `seaborn`, `scientific-visualization`.
+- Statistics and time series: `statistical-analysis`, `statsmodels`, `timesfm-forecasting`.
+- Machine learning: `scikit-learn`.
+- Symbolic math and formulas: `sympy`.
+- Exploratory data analysis: `exploratory-data-analysis`.
+- Optimization: `pymoo`.
+- Simulation: `simpy`.
+- Quantum optics/open quantum systems: `qutip`.
+- Materials/crystal/band/DOS workflows: `pymatgen`.
+- Graphs/networks/citation graphs: `networkx`.
+- FITS or astronomical/optical imaging style data: `astropy`.
+- Spreadsheet/PDF utilities: `xlsx`, `pdf`.
+- Literature/citation support: `paper-lookup`, `citation-management`, `literature-review`.
 
-- Purpose: literature report, group meeting, course report, opening/midterm/defense, project display, science communication, or other.
-- Duration and slide count.
-- Audience and evaluation criteria.
-- Required template, school/company constraints, fonts, ratio, logo, sections, notes, or output format.
-- Source files: paper, thesis, Word draft, data, MATLAB/Python/Origin figures, screenshots, old PPT, template.
+Some bundled references mention optional installs such as `uv pip install ...` or optional API keys for higher rate limits. Do not install packages, use cloud APIs, or send user data to external services unless the current task requires it and the user agrees.
 
-If the user asks to proceed immediately, make reasonable defaults and state them briefly.
+## Safety Rules
 
-For research PPTs, use a concise structure:
+- Never expose or commit API keys, tokens, private data, or unpublished paper content.
+- Do not overwrite original data, code, Word/PPT, or figures. Write versioned outputs.
+- Do not delete or recursively clean user files without explicit confirmation.
+- For external lookups, prefer open APIs and official documentation; clearly distinguish live lookup results from local inference.
 
-1. Cover.
-2. Research background and problem.
-3. Related work or theoretical basis.
-4. Method, model, system, or algorithm.
-5. Experiment/simulation setup.
-6. Results and analysis.
-7. Comparison and discussion.
-8. Contributions, limitations, and outlook.
-9. Q&A.
+## Verification
 
-For paper-reading PPTs, use:
+For code:
 
-1. Paper metadata.
-2. Background.
-3. Core problem.
-4. Method framework.
-5. Experiment setup.
-6. Main results.
-7. Contributions.
-8. Limitations.
-9. Possible improvements.
-10. Relationship to the user's topic.
+- Run the relevant script or a minimal example.
+- Check generated files exist and are readable.
+- Inspect plots for axes, units, legends, and plausible dimensions.
 
-## Slide Quality Rules
+For research analysis:
 
-- One core point per slide.
-- Prefer action titles that state the conclusion, not vague topic labels.
-- Figures, diagrams, tables, and formulas should carry the technical argument; avoid long paragraphs.
-- Keep axes, units, legends, formulas, assumptions, data sources, and figure captions scientifically accurate.
-- Use white or restrained academic backgrounds unless a supplied template requires otherwise.
-- Limit colors and decoration; use color to direct attention to evidence.
-- Avoid text overflow, image stretching, Chinese garbling, missing fonts, stale template text, bad navigation labels, and overlapping elements.
-
-The `academic-pptx` repository was reviewed as an external reference. Because it marks its license as proprietary, do not copy its text into outputs or this skill. Use only general academic presentation principles: argument-first structure, action titles, evidence-led slides, and the ghost-deck test.
-
-## PPTX Technical Work
-
-For template-matched defense PPTs:
-
-- Prefer copying native template slides and replacing content rather than rebuilding from blank slides.
-- On Windows with Microsoft PowerPoint installed, PowerPoint COM can be used for cloning, export, and overflow inspection.
-- Never modify the user's original PPTX directly. Work on a timestamped or versioned copy.
-- Do not disable PowerPoint add-ins or change application settings unless the user explicitly approves in that task.
-
-Useful bundled resources:
-
-- `references/thesis-defense-pptx/scripts/` for thesis context extraction, template cloning, slide export, contact sheets, text scans, and overflow inspection.
-- `references/office-pptx/` for OOXML-level PPTX inspection and editing.
-- `references/office-docx/` for OOXML-level DOCX inspection and editing.
-
-## Quality Gate
-
-Before final delivery, verify what is feasible:
-
-- For Word: inspect extracted text or package XML for missing text, garbled Chinese, broken images, table overflow, and source labels.
-- For PPT: export or inspect slides, check page order, stale placeholders, text overflow, image aspect ratio, overlap, and readability.
-- Report output file paths, source paths, extraction method, checks performed, and unresolved uncertainties.
+- State software versions when known.
+- List input files and commands.
+- Mark assumptions and uncertain parameters.
 
